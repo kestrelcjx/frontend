@@ -1,0 +1,18 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: frontend
+  cloud:
+    gateway:
+      routes:
+      - id: websocket-server
+        uri: ws://127.0.0.1:8888
+        predicates:
+        - Path=/api/v1/websocket-server/ws
+        filters:
+        - StripPrefix=3
+      httpclient:
+        websocket:
+          max-frame-payload-length: 512000 # 单位为字节，例如设置为512KB
